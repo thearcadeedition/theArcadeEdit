@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title id="page-title">Disguise - The Arcade Edition</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/app.css">
+    <link id="favicon-link" rel="icon" type="image/png" href="favicon.png">
+
+    <script src="assets/disguise.js"></script>
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+    <div class="header-inner">
+        <a class="wordmark" href="index.html">
+            <span class="wordmark-icon">🎮</span>
+            <span class="wordmark-text">THE <span class="accent">ARCADE</span> EDITION</span>
+        </a>
+        <nav class="site-nav">
+            <a href="index.html" class="nav-link" data-page="home">Home</a>
+            <a href="allgames.html" class="nav-link" data-page="games">All Games</a>
+            <a href="disguise.html" class="nav-link active" data-page="disguise">Disguise</a>
+        </nav>
+        <div class="header-right">
+            <button class="search-toggle" id="search-toggle" aria-label="Search">🔍 Search games...</button>
+        </div>
+    </div>
+    <div class="search-dropdown" id="search-dropdown" style="display:none">
+        <input id="header-search" type="search" placeholder="Search games..." autocomplete="off" spellcheck="false">
+        <div class="search-results" id="search-results"></div>
+    </div>
+</header>
+
+<main class="disguise-main">
+    <canvas id="network-canvas" class="bg-canvas"></canvas>
+
+    <div class="disguise-content">
+        <p class="stealth-label">STEALTH MODE</p>
+        <h1 class="disguise-title">TAB DISGUISE</h1>
+        <p class="disguise-sub">Make your browser tab look like something harmless. Pick a preset or set your own custom text.</p>
+
+        <div class="tab-preview-wrap">
+            <div class="fake-browser">
+                <div class="fake-header-bar">
+                    <div class="fake-tab" id="fake-tab">
+                        <img src="favicon.png" id="preview-favicon" alt="Favicon" onerror="this.src='favicon.png'">
+                        <span id="preview-title">My Game Vault</span>
+                        <span class="fake-close">✕</span>
+                    </div>
+                </div>
+                <div class="fake-bar">
+                    <span class="fake-arrows">← → ↻</span>
+                    <span class="fake-url" id="preview-url">yourname.github.io/vault</span>
+                </div>
+            </div>
+        </div>
+
+        <p class="disguise-section-label">PRESETS</p>
+        <div class="preset-grid" id="preset-grid">
+            <button class="preset-btn" data-icon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4Ny4zIDc4Ij4KICA8cGF0aCBkPSJNNi42IDY2Ljg1bDMuODUgNi42NWMuOCAxLjQgMS45NSAyLjUgMy4zIDMuM0wyNy41IDUxSDBjMCAxLjU1LjQgMy4xIDEuMiA0LjV6IiBmaWxsPSIjMDA2NmRhIi8+CiAgPHBhdGggZD0iTTQzLjY1IDI1TDI5LjkgMS4yQzI4LjU1IDIgMjcuNCAzLjEgMjYuNiA0LjVMMS4yIDQ2LjVBOSA5IDAgMDAwIDUxaDI3LjV6IiBmaWxsPSIjMDBhYzQ3Ii8+CiAgPHBhdGggZD0iTTczLjU1IDc2LjhjMS4zNS0uOCAyLjUtMS45IDMuMy0zLjNsMS42LTIuNzVMODYuMSA1NS41Yy44LTEuNCAxLjItMi45NSAxLjItNC41SDU5Ljc1bDUuOSAxMS41eiIgZmlsbD0iI2VhNDMzNSIvPgogIDxwYXRoIGQ9Ik00My42NSAyNUw1Ny40IDEuMkM1Ni4wNS40IDU0LjUgMCA1Mi45IDBIMzQuNGMtMS42IDAtMy4xNS40NS00LjUgMS4yeiIgZmlsbD0iIzAwODMyZCIvPgogIDxwYXRoIGQ9Ik01OS44IDUxSDI3LjVMMTMuNzUgNzYuOGMxLjM1LjggMi45IDEuMiA0LjUgMS4yaDUwLjhjMS42IDAgMy4xNS0uNCA0LjUtMS4yeiIgZmlsbD0iIzI2ODRmYyIvPgogIDxwYXRoIGQ9Ik03My40IDI2LjVsLTEyLjctMjJjLS44LTEuNC0xLjk1LTIuNS0zLjMtMy4zTDQzLjY1IDI1IDU5LjggNTFoMjcuNDVjMC0xLjU1LS40LTMuMS0xLjItNC41eiIgZmlsbD0iI2ZmYmEwMCIvPgo8L3N2Zz4=" data-name="My Drive - Google Drive">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4Ny4zIDc4Ij48cGF0aCBkPSJNNi42IDY2Ljg1bDMuODUgNi42NWMuOCAxLjQgMS45NSAyLjUgMy4zIDMuM0wyNy41IDUxSDBjMCAxLjU1LjQgMy4xIDEuMiA0LjV6IiBmaWxsPSIjMDA2NmRhIi8+PHBhdGggZD0iTTQzLjY1IDI1TDI5LjkgMS4yQzI4LjU1IDIgMjcuNCAzLjEgMjYuNiA0LjVMMS4yIDQ2LjVBOSA5IDAgMDAwIDUxaDI3LjV6IiBmaWxsPSIjMDBhYzQ3Ii8+PHBhdGggZD0iTTczLjU1IDc2LjhjMS4zNS0uOCAyLjUtMS45IDMuMy0zLjNsMS42LTIuNzVMODYuMSA1NS41Yy44LTEuNCAxLjItMi45NSAxLjItNC41SDU5Ljc1bDUuOSAxMS41eiIgZmlsbD0iI2VhNDMzNSIvPjxwYXRoIGQ9Ik00My42NSAyNUw1Ny40IDEuMkM1Ni4wNS40IDU0LjUgMCA1Mi45IDBIMzQuNGMtMS42IDAtMy4xNS40NS00LjUgMS4yeiIgZmlsbD0iIzAwODMyZCIvPjxwYXRoIGQ9Ik01OS44IDUxSDI3LjVMMTMuNzUgNzYuOGMxLjM1LjggMi45IDEuMiA0LjUgMS4yaDUwLjhjMS42IDAgMy4xNS0uNCA0LjUtMS4yeiIgZmlsbD0iIzI2ODRmYyIvPjxwYXRoIGQ9Ik03My40IDI2LjVsLTEyLjctMjJjLS44LTEuNC0xLjk1LTIuNS0zLjMtMy4zTDQzLjY1IDI1IDU5LjggNTFoMjcuNDVjMC0xLjU1LS40LTMuMS0xLjItNC41eiIgZmlsbD0iI2ZmYmEwMCIvPjwvc3ZnPg==" class="preset-icon" style="width:28px; height:28px; object-fit:contain;" alt="Google Drive">
+                <span>GOOGLE DRIVE</span>
+            </button>
+            <button class="preset-btn" data-icon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+CiAgPHBhdGggZmlsbD0iI0VBNDMzNSIgZD0iTTI0IDkuNWMzLjU0IDAgNi43MSAxLjIyIDkuMjEgMy42bDYuODUtNi44NUMzNS45IDIuMzggMzAuNDcgMCAyNCAwIDE0LjYyIDAgNi41MSA1LjM4IDIuNTYgMTMuMjJsNy45OCA2LjE5QzEyLjQzIDEzLjcyIDE3Ljc0IDkuNSAyNCA5LjV6Ii8+CiAgPHBhdGggZmlsbD0iIzQyODVGNCIgZD0iTTQ2Ljk4IDI0LjU1YzAtMS41Ny0uMTUtMy4wOS0uMzgtNC41NUgyNHY5LjAyaDEyLjk0Yy0uNTggMi45Ni0yLjI2IDUuNDgtNC43OCA3LjE4bDcuNzMgNmM0LjUxLTQuMTggNy4wOS0xMC4zNiA3LjA5LTE3LjY1eiIvPgogIDxwYXRoIGZpbGw9IiNGQkJDMDUiIGQ9Ik0xMC41MyAyOC41OWMtLjQ4LTEuNDUtLjc2LTIuOTktLjc2LTQuNTlzLjI3LTMuMTQuNzYtNC41OWwtNy45OC02LjE5Qy45MiAxNi40NiAwIDIwLjEyIDAgMjRjMCAzLjg4LjkyIDcuNTQgMi41NiAxMC43OGw3Ljk3LTYuMTl6Ii8+CiAgPHBhdGggZmlsbD0iIzM0QTg1MyIgZD0iTTI0IDQ4YzYuNDggMCAxMS45My0yLjEzIDE1Ljg5LTUuODFsLTcuNzMtNmMtMi4xOCAxLjQ4LTQuOTcgMi4zMS04LjE2IDIuMzEtNi4yNiAwLTExLjU3LTQuMjItMTMuNDctOS45MWwtNy45OCA2LjE5QzYuNTEgNDIuNjIgMTQuNjIgNDggMjQgNDh6Ii8+Cjwvc3ZnPg==" data-name="Google">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PHBhdGggZmlsbD0iI0VBNDMzNSIgZD0iTTI0IDkuNWMzLjU0IDAgNi43MSAxLjIyIDkuMjEgMy42bDYuODUtNi44NUMzNS45IDIuMzggMzAuNDcgMCAyNCAwIDE0LjYyIDAgNi41MSA1LjM4IDIuNTYgMTMuMjJsNy45OCA2LjE5QzEyLjQzIDEzLjcyIDE3Ljc0IDkuNSAyNCA5LjV6Ii8+PHBhdGggZmlsbD0iIzQyODVGNCIgZD0iTTQ2Ljk4IDI0LjU1YzAtMS41Ny0uMTUtMy4wOS0uMzgtNC41NUgyNHY5LjAyaDEyLjk0Yy0uNTggMi45Ni0yLjI2IDUuNDgtNC43OCA3LjE4bDcuNzMgNmM0LjUxLTQuMTggNy4wOS0xMC4zNiA3LjA5LTE3LjY1eiIvPjxwYXRoIGZpbGw9IiNGQkJDMDUiIGQ9Ik0xMC41MyAyOC41OWMtLjQ4LTEuNDUtLjc2LTIuOTktLjc2LTQuNTlzLjI3LTMuMTQuNzYtNC41OWwtNy45OC02LjE5Qy45MiAxNi40NiAwIDIwLjEyIDAgMjRjMCAzLjg4LjkyIDcuNTQgMi41NiAxMC43OGw3Ljk3LTYuMTl6Ii8+PHBhdGggZmlsbD0iIzM0QTg1MyIgZD0iTTI0IDQ4YzYuNDggMCAxMS45My0yLjEzIDE1Ljg5LTUuODFsLTcuNzMtNmMtMi4xOCAxLjQ4LTQuOTcgMi4zMS04LjE2IDIuMzEtNi4yNiAwLTExLjU3LTQuMjItMTMuNDctOS45MWwtNy45OCA2LjE5QzYuNTEgNDIuNjIgMTQuNjIgNDggMjQgNDh6Ii8+PC9zdmc+" class="preset-icon" style="width:28px; height:28px; object-fit:contain;" alt="Google">
+                <span>GOOGLE</span>
+            </button>
+            <button class="preset-btn" data-icon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMzIiIGZpbGw9IiMxNEJGOTYiLz4KICA8cGF0aCBkPSJNMjAgMTZsMTQgMTYtMTQgMTZoNmwxMS0xM3YtNkwyNiAxNnoiIGZpbGw9IndoaXRlIi8+CiAgPHBhdGggZD0iTTM0IDI5djZsNCA1aDZMMzIgMjR6IiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC43Ii8+Cjwvc3ZnPg==" data-name="Khan Academy">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMzIiIGZpbGw9IiMxNEJGOTYiLz48cGF0aCBkPSJNMjAgMTZsMTQgMTYtMTQgMTZoNmwxMS0xM3YtNkwyNiAxNnoiIGZpbGw9IndoaXRlIi8+PHBhdGggZD0iTTM0IDI5djZsNCA1aDZMMzIgMjR6IiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC43Ii8+PC9zdmc+" class="preset-icon" style="width:28px; height:28px; object-fit:contain;" alt="Khan Academy">
+                <span>KHAN ACADEMY</span>
+            </button>
+            <button class="preset-btn" data-icon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+CiAgPHBhdGggZmlsbD0iIzIxOTZGMyIgZD0iTTM3IDQ1SDExYy0xLjcgMC0zLTEuMy0zLTNWNmMwLTEuNyAxLjMtMyAzLTNoMTlsMTAgMTB2MjljMCAxLjctMS4zIDMtMyAzeiIvPgogIDxwYXRoIGZpbGw9IiNCQkRFRkIiIGQ9Ik00MCAxM0gzMFYzeiIvPgogIDxwYXRoIGZpbGw9IndoaXRlIiBkPSJNMTUgMjNoMTh2MkgxNXptMCA0aDE4djJIMTV6bTAgNGgxMnYySDE1eiIvPgo8L3N2Zz4=" data-name="Google Docs">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PHBhdGggZmlsbD0iIzIxOTZGMyIgZD0iTTM3IDQ1SDExYy0xLjcgMC0zLTEuMy0zLTNWNmMwLTEuNyAxLjMtMyAzLTNoMTlsMTAgMTB2MjljMCAxLjctMS4zIDMtMyAzeiIvPjxwYXRoIGZpbGw9IiNCQkRFRkIiIGQ9Ik00MCAxM0gzMFYzeiIvPjxwYXRoIGZpbGw9IndoaXRlIiBkPSJNMTUgMjNoMTh2MkgxNXptMCA0aDE4djJIMTV6bTAgNGgxMnYySDE1eiIvPjwvc3ZnPg==" class="preset-icon" style="width:28px; height:28px; object-fit:contain;" alt="Google Docs">
+                <span>GOOGLE DOCS</span>
+            </button>
+            <button class="preset-btn" data-icon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+CiAgPHBhdGggZmlsbD0iI0Y0QjQwMCIgZD0iTTM3IDQ1SDExYy0xLjcgMC0zLTEuMy0zLTNWNmMwLTEuNyAxLjMtMyAzLTNoMTlsMTAgMTB2MjljMCAxLjctMS4zIDMtMyAzeiIvPgogIDxwYXRoIGZpbGw9IiNGOUE4MjUiIGQ9Ik00MCAxM0gzMFYzeiIvPgogIDxyZWN0IHg9IjE0IiB5PSIxOCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjE0IiByeD0iMSIgZmlsbD0id2hpdGUiLz4KICA8cGF0aCBmaWxsPSIjRjRCNDAwIiBkPSJNMjEgMjJsNyA0LTcgNHoiLz4KPC9zdmc+" data-name="Google Slides">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PHBhdGggZmlsbD0iI0Y0QjQwMCIgZD0iTTM3IDQ1SDExYy0xLjcgMC0zLTEuMy0zLTNWNmMwLTEuNyAxLjMtMyAzLTNoMTlsMTAgMTB2MjljMCAxLjctMS4zIDMtMyAzeiIvPjxwYXRoIGZpbGw9IiNGOUE4MjUiIGQ9Ik00MCAxM0gzMFYzeiIvPjxyZWN0IHg9IjE0IiB5PSIxOCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjE0IiByeD0iMSIgZmlsbD0id2hpdGUiLz48cGF0aCBmaWxsPSIjRjRCNDAwIiBkPSJNMjEgMjJsNyA0LTcgNHoiLz48L3N2Zz4=" class="preset-icon" style="width:28px; height:28px; object-fit:contain;" alt="Google Slides">
+                <span>GOOGLE SLIDES</span>
+            </button>
+            <button class="preset-btn" data-icon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI0U2NjAwMCIvPgogIDxwYXRoIGQ9Ik0zMiAxMCBMNTQgNTIgSDEwIFoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIzOCIgcj0iOCIgZmlsbD0iI0U2NjAwMCIvPgo8L3N2Zz4=" data-name="Canvas LMS">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI0U2NjAwMCIvPjxwYXRoIGQ9Ik0zMiAxMCBMNTQgNTIgSDEwIFoiIGZpbGw9IndoaXRlIi8+PGNpcmNsZSBjeD0iMzIiIGN5PSIzOCIgcj0iOCIgZmlsbD0iI0U2NjAwMCIvPjwvc3ZnPg==" class="preset-icon" style="width:28px; height:28px; object-fit:contain;" alt="Canvas LMS">
+                <span>CANVAS LMS</span>
+            </button>
+        </div>
+
+        <p class="disguise-section-label">CUSTOM</p>
+        <div class="custom-row">
+            <input id="custom-title" type="text" placeholder="Enter custom tab title..." class="title-input">
+            <button class="apply-btn" id="apply-btn">Apply</button>
+        </div>
+
+        <button class="reset-btn" id="reset-btn">↩ Reset to Default</button>
+    </div>
+</main>
+
+<script src="games.js"></script>
+<script src="assets/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Initialize background animation safely
+    if (typeof initNetwork === 'function') initNetwork();
+
+    const previewFavicon = document.getElementById('preview-favicon');
+    const previewTitle   = document.getElementById('preview-title');
+    const customTitle    = document.getElementById('custom-title');
+
+    function updatePreview(iconUrl, name) {
+        if (previewFavicon) previewFavicon.src = iconUrl || 'favicon.png';
+        if (previewTitle) previewTitle.textContent = name.slice(0, 24) + (name.length > 24 ? '…' : '');
+    }
+
+    // 2. Safe execution guard: Wait for disguise system functions to be available
+    function loadSavedDisguise() {
+        if (typeof getDisguise !== 'function') return;
+        
+        const saved = getDisguise();
+        if (saved) {
+            updatePreview(saved.icon, saved.name);
+            if (customTitle) customTitle.value = saved.name;
+            
+            document.querySelectorAll('.preset-btn').forEach(b => {
+                if (b.dataset.name === saved.name) b.classList.add('active');
+            });
+        }
+    }
+
+    // Load initial state
+    loadSavedDisguise();
+
+    // 3. Live preview handling as the user types custom text
+    if (customTitle) {
+        customTitle.addEventListener('input', () => {
+            const currentSaved = typeof getDisguise === 'function' ? getDisguise() : null;
+            const activeIcon = currentSaved ? currentSaved.icon : 'favicon.png';
+            updatePreview(activeIcon, customTitle.value || 'My Game Vault');
+        });
+    }
+
+    // 4. Preset selection grid click handler
+    const presetGrid = document.getElementById('preset-grid');
+    if (presetGrid) {
+        presetGrid.addEventListener('click', e => {
+            const btn = e.target.closest('.preset-btn');
+            if (!btn) return;
+            
+            const icon = btn.dataset.icon;
+            const name = btn.dataset.name;
+            
+            if (customTitle) customTitle.value = name;
+            updatePreview(icon, name);
+            
+            if (typeof applyDisguise === 'function') {
+                applyDisguise(icon, name);
+            }
+            
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    }
+
+    // 5. Apply custom input button configuration
+    const applyBtn = document.getElementById('apply-btn');
+    if (applyBtn && customTitle) {
+        applyBtn.addEventListener('click', () => {
+            const name = customTitle.value.trim() || 'My Game Vault';
+            const currentSaved = typeof getDisguise === 'function' ? getDisguise() : null;
+            const icon = currentSaved ? currentSaved.icon : 'favicon.png';
+            
+            if (typeof applyDisguise === 'function') {
+                applyDisguise(icon, name);
+            }
+            updatePreview(icon, name);
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+        });
+    }
+
+    // 6. Reset action execution
+    const resetBtn = document.getElementById('reset-btn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            if (typeof clearDisguise === 'function') {
+                clearDisguise();
+            }
+            if (customTitle) customTitle.value = '';
+            updatePreview('favicon.png', 'My Game Vault');
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+        });
+    }
+});
+</script>
+</body>
+</html>
